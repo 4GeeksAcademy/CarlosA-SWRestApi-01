@@ -47,7 +47,7 @@ def handle_users():
         response_body['results'] = [row.serialize() for row in users]
         response_body['message'] = 'Data retrieved successfully!'
         return response_body, 200
-    # Metodo PUT
+    # Metodo POST
     if request.method == 'POST':
         data = request.json
         user = Users(email=data['email'],
@@ -170,7 +170,7 @@ def handle_remove_favorite_planet(id_user, id_planet):
     planet = db.session.execute(db.select(PlanetFavorites).where(PlanetFavorites.user_id == id_user)).scalar()
     db.session.delete(planet)
     db.session.commit()
-    response_body['message'] = f'Planet {id_planet} added to favorites of {id_user}'
+    response_body['message'] = f'Planet {id_planet} deleted from favorites of {id_user}'
     return response_body, 200
 
 
@@ -180,7 +180,7 @@ def handle_remove_favorite_character(id_user, id_character):
     character = db.session.execute(db.select(CharacterFavorites).where(CharacterFavorites.user_id == id_user)).scalar()
     db.session.delete(character)
     db.session.commit()
-    response_body['message'] = f'character {id_character} added to favorites of {id_user}'
+    response_body['message'] = f'character {id_character} deleted from favorites of {id_user}'
     return response_body, 200
 
 
